@@ -27,6 +27,7 @@ cd <project-directory>
 2. Install all dependencies (both frontend and backend):
 
 ```bash
+npm install (then)
 npm run install:all
 ```
 
