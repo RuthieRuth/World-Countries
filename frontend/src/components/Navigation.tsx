@@ -17,6 +17,7 @@ export const Navigation = () => {
                 {user ? (<Button color="inherit" onClick={signOut}>Logout ({user.email})</Button>)
                       : (<Button color="inherit" component={RouterLink} to="/login">Login</Button>)
                 }
+                <Button color="inherit" component={RouterLink} to="/countries">Countries</Button>
             </Toolbar>
         </AppBar>
 

@@ -7,7 +7,8 @@ import { ProtectedRoute } from "./components/Auth/ProtectedRoute";
 import { Navigation } from "./components/Navigation";
 import ProtectedTestData from "./components/ProtectedTestData";
 import { AuthRedirect } from "./components/Auth/AuthRedirect";
-import { Home } from "@mui/icons-material";
+import CountriesList from "./components/CountriesList";
+//import { Home } from "@mui/icons-material";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
                 }
               />
               {/* Other routes... */}
+              <Route path="countries" element={<CountriesList/>}/>
             </Routes>
           </Box>
         </Box>
