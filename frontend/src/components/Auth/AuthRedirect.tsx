@@ -14,3 +14,5 @@ export const AuthRedirect = () => {
 
   return null;
 };
+
+// force or push the user to be redirected to the protected route if they are already logged in
