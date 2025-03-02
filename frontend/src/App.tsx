@@ -8,6 +8,7 @@ import { Navigation } from "./components/Navigation";
 import ProtectedTestData from "./components/ProtectedTestData";
 import { AuthRedirect } from "./components/Auth/AuthRedirect";
 import CountriesList from "./components/CountriesList";
+import CountryDetail from "./components/CountryDetail";
 //import { Home } from "@mui/icons-material";
 
 function App() {
@@ -37,7 +38,21 @@ function App() {
                 }
               />
               {/* Other routes... */}
-              <Route path="countries" element={<CountriesList/>}/>
+              <Route 
+                path="/countries" 
+                element={
+                  <>
+                    <CountriesList/>  
+                  </> 
+                }/>
+              <Route
+                path="/countries/:name"
+                element={
+                  <>
+                    <CountryDetail/>
+                  </>
+                }
+              />
             </Routes>
           </Box>
         </Box>
