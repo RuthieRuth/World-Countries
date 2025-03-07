@@ -1,5 +1,4 @@
 import { AppBar, Button, Toolbar } from '@mui/material';
-//import {useAuth} from '../context/auth-context';
 import {useAuth} from '../context/AuthContext';
 import {Link as RouterLink} from 'react-router-dom';
 import { Lock } from '@mui/icons-material';
@@ -18,6 +17,11 @@ export const Navigation = () => {
                       : (<Button color="inherit" component={RouterLink} to="/login">Login</Button>)
                 }
                 <Button color="inherit" component={RouterLink} to="/countries">Countries</Button>
+
+                {/* <Button color="inherit" component={RouterLink} to="/favourites">Favourites</Button> */}
+                {user && (<Button color="inherit" component={RouterLink} to="/favourites">Favourites</Button>)}
+                {/* if  user is logged in then they see   startIcon="favourites"*/}
+                
             </Toolbar>
         </AppBar>
 

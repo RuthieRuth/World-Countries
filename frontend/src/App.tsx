@@ -9,6 +9,7 @@ import ProtectedTestData from "./components/ProtectedTestData";
 import { AuthRedirect } from "./components/Auth/AuthRedirect";
 import CountriesList from "./components/CountriesList";
 import CountryDetail from "./components/CountryDetail";
+import Favourites from "./components/Favourites";
 //import { Home } from "@mui/icons-material";
 
 function App() {
@@ -38,6 +39,14 @@ function App() {
                 }
               />
               {/* Other routes... */}
+              <Route
+                path="/favourites"
+                element={
+                  <ProtectedRoute>
+                    <Favourites />
+                  </ProtectedRoute>
+                }
+              />
               <Route 
                 path="/countries" 
                 element={

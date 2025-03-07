@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector} from "../store/hooks";
 import { selectAllCountries, fetchAllCountries, selectCountriesLoading, selectCountriesError } from "../store/slices/countriesSlice";
-import { TextField, Typography } from "@mui/material";
+import { Button, Grid, Grid2, Menu, MenuItem, TextField, Typography } from "@mui/material";
 import CountryCard from "./CountryCard";
-import { Form, Link } from "react-router-dom";
+
 import { Country } from "../types/country";
+
 
 
 const CountriesList = () => {
@@ -22,11 +23,20 @@ const CountriesList = () => {
     
      const [searchInput, setSearchInput] = useState<string>('');
      const [filteredCountries, setFilteredCountries] = useState<Country[]>([]);
-
+     const [filter, setFilter] = useState<string>('');
+     const [filterMenu, setFilterMenu] = useState<boolean>(false);
+     
     useEffect(() => {
         setFilteredCountries(countries);
     }
     , [countries]);
+
+    const handleFilter = (event: React.MouseEvent<HTMLButtonElement>) => {
+
+        // event.preventDefault();
+        // setFilterMenu(!filterMenu);
+        // console.log(filterMenu);
+     };
 
      //const handleSearch
      const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,23 +57,31 @@ const CountriesList = () => {
             }
      }
 
+    
+
     return (
         <div> 
         <Typography variant="h4" component="h1" gutterBottom> Countries </Typography>
 
+
         <TextField type="text" label="search" value={searchInput} onChange={handleSearch}></TextField>
 
+        <Button id="filter" onClick={handleFilter}>Filter</Button>
+        <Menu id="filter-menu">
+            <MenuItem>A-Z</MenuItem>
+            <MenuItem>Z-A</MenuItem>
+        </Menu>
+        
 
+        <Grid2 container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
         {filteredCountries.map((country)=> 
-            <Link to={`/countries/${encodeURIComponent(country.name.common)}`} key={country.name.common}>
-                <CountryCard country={{
-                    name:country.name.common,
-                    population:country.population,
-                    flag:country.flags.png //country.flag.svg
-                    }} />
-            </Link>
+            
+                <Grid item xs={12} sm={6} md={4} lg={3}>
+                <CountryCard country={country} />
+                </Grid>
+        
         )}
-      
+       </Grid2>
         </div>
     );
 

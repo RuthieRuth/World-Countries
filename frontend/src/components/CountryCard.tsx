@@ -1,25 +1,50 @@
 //import { Box, Stack } from "@mui/material";
-
 //import { Button } from "@mui/material";
 
+import { Card, CardActionArea, CardActions } from "@mui/material";
+import FavouriteButton from "./FavouriteButton";
+import { Link } from "react-router-dom";
+import { Country } from "../types/country";
+
+// interface CountryCardProps {
+//   country: {
+//     flags: { svg: string };
+//     name: string;
+//     population: number;
+//     capital?: string[];
+//     location?: string;
+//     latlng?: number[];
+//   };
+// }
+
 interface CountryCardProps {
-    country:{ 
-            flag: string;
-            name: string;
-            population: number;
-        }
+  country: Country;
 }
 
-const CountryCard: React.FC<CountryCardProps> = ({country}) => {
-
-    return (
-
-        <div>
-            <img src={country.flag} alt={`${country.name}`} />
-            <h2>{country.name}</h2>
+const CountryCard = ({ country }: CountryCardProps) => {
+  console.log("Country from CountryCard:", country);
+  return (
+    <Card>
+      <CardActionArea>
+        <Link
+          to={`/countries/${encodeURIComponent(country.name.common)}`}
+          key={country.name.common}
+        >
+          <div>
+            <img src={country.flags.svg} alt={`${country.name}`} />
+            <h2>{country.name.common}</h2>
             <p>Population: {country.population}</p>
-        </div>
-    );
-}
+
+            <p>Capital: {country.capital}</p>
+            {/* <p>Position: {country.}</p> */}
+          </div>
+        </Link>
+      </CardActionArea>
+      <CardActions sx={{ mt: "auto", justifyContent: "flex-end" }}>
+        <FavouriteButton country={country} />
+      </CardActions>
+    </Card>
+  );
+};
 
 export default CountryCard;
