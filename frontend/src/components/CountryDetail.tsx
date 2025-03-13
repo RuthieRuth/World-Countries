@@ -90,7 +90,8 @@ const CountryDetail = () => {
                     <Typography variant="body1">Longitude: {country.latlng?.[1]}</Typography>
 
                     <Typography variant="h6" component="h2" gutterBottom>Weather: </Typography>
-                    {/* <Typography variant="body1">Weather with component: {<WeatherReport/>}</Typography> */}
+                    <Typography variant="body1">Weather with component: {<WeatherReport country={country} />
+                }</Typography>
 
                 </CardContent>
             </Card>
@@ -110,7 +111,7 @@ const CountryDetail = () => {
                         
                     }}
                 /> */}
-                {/* <WeatherComponent /> */}
+                {/* <WeatherReport /> */}
             {/* </Grid2> */}
         </div>
     );
