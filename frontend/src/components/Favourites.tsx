@@ -9,6 +9,7 @@ import { Box, Grid } from "@mui/system";
 import CountryCard from "./CountryCard";
 
 
+
 const Favourites = () => {
 
     const {user} = useAuth(); //is there a user logged in? then continue with useEffect
