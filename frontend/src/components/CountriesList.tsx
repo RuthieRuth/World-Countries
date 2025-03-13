@@ -23,8 +23,8 @@ const CountriesList = () => {
     
      const [searchInput, setSearchInput] = useState<string>('');
      const [filteredCountries, setFilteredCountries] = useState<Country[]>([]);
-     const [filter, setFilter] = useState<string>('');
-     const [filterMenu, setFilterMenu] = useState<boolean>(false);
+    //  const [filter, setFilter] = useState<string>('');
+    //  const [filterMenu, setFilterMenu] = useState<boolean>(false);
      
     useEffect(() => {
         setFilteredCountries(countries);
@@ -33,7 +33,7 @@ const CountriesList = () => {
 
     const handleFilter = (event: React.MouseEvent<HTMLButtonElement>) => {
 
-        // event.preventDefault();
+        event.preventDefault();
         // setFilterMenu(!filterMenu);
         // console.log(filterMenu);
      };
@@ -56,6 +56,9 @@ const CountriesList = () => {
                 setFilteredCountries(filteredCountries);
             }
      }
+
+     if(loading){return <div>Loading...</div>}
+     if(error){return <div>Error: {error}</div>}
 
     
 

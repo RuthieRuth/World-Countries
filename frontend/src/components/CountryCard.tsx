@@ -31,7 +31,7 @@ const CountryCard = ({ country }: CountryCardProps) => {
           key={country.name.common}
         >
           <div>
-            <img src={country.flags.svg} alt={`${country.name}`} />
+            <img src={country.flags.png} alt={`${country.name}`} />
             <h2>{country.name.common}</h2>
             <p>Population: {country.population}</p>
 
