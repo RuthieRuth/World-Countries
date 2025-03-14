@@ -6,6 +6,7 @@ import CountryCard from "./CountryCard";
 
 import { Country } from "../types/country";
 
+import FilterDropDown from "./Filter";
 
 
 const CountriesList = () => {
@@ -14,6 +15,7 @@ const CountriesList = () => {
     const loading = useAppSelector(selectCountriesLoading);
     const error = useAppSelector(selectCountriesError);
 
+    //fetching and displaying all countries
     useEffect(() => {
         dispatch(fetchAllCountries());
     }, [dispatch]);
@@ -23,20 +25,13 @@ const CountriesList = () => {
     
      const [searchInput, setSearchInput] = useState<string>('');
      const [filteredCountries, setFilteredCountries] = useState<Country[]>([]);
-    //  const [filter, setFilter] = useState<string>('');
-    //  const [filterMenu, setFilterMenu] = useState<boolean>(false);
+     
      
     useEffect(() => {
         setFilteredCountries(countries);
     }
     , [countries]);
 
-    const handleFilter = (event: React.MouseEvent<HTMLButtonElement>) => {
-
-        event.preventDefault();
-        // setFilterMenu(!filterMenu);
-        // console.log(filterMenu);
-     };
 
      //const handleSearch
      const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,12 +64,9 @@ const CountriesList = () => {
 
         <TextField type="text" label="search" value={searchInput} onChange={handleSearch}></TextField>
 
-        <Button id="filter" onClick={handleFilter}>Filter</Button>
-        <Menu id="filter-menu">
-            <MenuItem>A-Z</MenuItem>
-            <MenuItem>Z-A</MenuItem>
-        </Menu>
-        
+        {/* <Button id="filter" onClick={handleFilter}>Filter</Button> */}
+        <FilterDropDown options={['Ascending order', 'Descending order', 'CurrencyType']}/>
+
 
         <Grid2 container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
         {filteredCountries.map((country)=> 

@@ -4,9 +4,6 @@ import { fetchAllCountries, selectAllCountries, selectCountriesError, selectCoun
 import { useEffect } from "react";
 import { Button, Card, CardContent, CardMedia,Typography } from "@mui/material";
 import WeatherReport from "./WeatherReport";
-//import CountryCard from "./CountryCard";
-//import WeatherComponent from "./WeatherReport";
-
 
 
 const CountryDetail = () => {
