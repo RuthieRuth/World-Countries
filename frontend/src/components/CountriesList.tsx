@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector} from "../store/hooks";
 import { selectAllCountries, fetchAllCountries, selectCountriesLoading, selectCountriesError } from "../store/slices/countriesSlice";
-import { Button, Grid, Grid2, Menu, MenuItem, TextField, Typography } from "@mui/material";
+import { Grid, Grid2, Pagination, TextField, Typography } from "@mui/material";
 import CountryCard from "./CountryCard";
 
 import { Country } from "../types/country";
 
 import FilterDropDown from "./Filter";
+import { useNavigate } from "react-router-dom";
+
+
 
 
 const CountriesList = () => {
@@ -14,6 +17,7 @@ const CountriesList = () => {
     const countries = useAppSelector(selectAllCountries);
     const loading = useAppSelector(selectCountriesLoading);
     const error = useAppSelector(selectCountriesError);
+
 
     //fetching and displaying all countries
     useEffect(() => {
@@ -25,6 +29,10 @@ const CountriesList = () => {
     
      const [searchInput, setSearchInput] = useState<string>('');
      const [filteredCountries, setFilteredCountries] = useState<Country[]>([]);
+
+     const navigate = useNavigate();
+     const[page, setPage] = useState(1); // why 1? because we want to start from page
+     const countriesPerPage = 20;
      
      
     useEffect(() => {
@@ -55,7 +63,20 @@ const CountriesList = () => {
      if(loading){return <div>Loading...</div>}
      if(error){return <div>Error: {error}</div>}
 
-    
+        //Pagination
+
+      const pageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+        console.log('clicked');
+
+        setPage(value);
+        navigate(`/?page=${value}`);
+      }
+
+      const indexOfLastCountry = page * countriesPerPage;
+        const indexOfFirstCountry = indexOfLastCountry - countriesPerPage;
+        const currentCountries = filteredCountries.slice(indexOfFirstCountry, indexOfLastCountry);
+
+        console.log(currentCountries);
 
     return (
         <div> 
@@ -65,11 +86,16 @@ const CountriesList = () => {
         <TextField type="text" label="search" value={searchInput} onChange={handleSearch}></TextField>
 
         {/* <Button id="filter" onClick={handleFilter}>Filter</Button> */}
-        <FilterDropDown options={['Ascending order', 'Descending order', 'CurrencyType']}/>
+        {/* <FilterDropDown options={['Ascending order', 'Descending order', 'CurrencyType']}/> */}
+        <FilterDropDown/>
+
+       
+        <h1>Pagination</h1>
+       <Pagination count={Math.ceil(filteredCountries.length/countriesPerPage)} color="primary" onChange={pageChange} page={page}/>
 
 
         <Grid2 container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-        {filteredCountries.map((country)=> 
+        {currentCountries.map((country)=> 
             
                 <Grid item xs={12} sm={6} md={4} lg={3}>
                 <CountryCard country={country} />
@@ -77,6 +103,9 @@ const CountriesList = () => {
         
         )}
        </Grid2>
+
+      
+
         </div>
     );
 
