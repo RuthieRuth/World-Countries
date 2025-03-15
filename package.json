@@ -14,10 +14,12 @@
         "build:frontend": "cd frontend && npm run build"
     },
     "devDependencies": {
+        "@testing-library/cypress": "^10.0.3",
         "concurrently": "^8.2.2"
     },
     "dependencies": {
         "all": "^0.0.0",
-        "axios": "^1.7.9"
+        "axios": "^1.7.9",
+        "cypress-real-events": "^1.14.0"
     }
 }
