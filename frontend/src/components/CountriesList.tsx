@@ -69,7 +69,7 @@ const CountriesList = () => {
         console.log('clicked');
 
         setPage(value);
-        navigate(`/?page=${value}`);
+        // navigate(`/?page=${value}`);
       }
 
       const indexOfLastCountry = page * countriesPerPage;
