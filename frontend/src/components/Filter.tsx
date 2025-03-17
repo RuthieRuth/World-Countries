@@ -1,8 +1,8 @@
 import { Button, Menu, MenuItem } from '@mui/material';
 import React, { useState } from 'react';
 
-import { useAppDispatch, useAppSelector} from "../store/hooks";
-import { fetchAllCountries, selectAllCountries } from "../store/slices/countriesSlice";
+import { useAppSelector} from "../store/hooks";
+import { selectAllCountries } from "../store/slices/countriesSlice";
 import { Country } from "../types/country";
 //import { RootState } from './store';
 
