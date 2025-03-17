@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { Country } from "../types/country";
 import { WeatherData } from "../types/weather";
+//import { weatherAPI } from "../config/openweather";
+import { weatherAPI } from '../config/supabase';
 
 interface WeatherReportProps {
   country: Country;
@@ -12,7 +14,7 @@ const WeatherReport = ({ country }: WeatherReportProps) => {
 
   useEffect(() => {
     const fetchWeather = async () => {
-      const apiKey = "2e69040e999ee039b3697aec6e614b9e";
+      const apiKey = weatherAPI; // bring it from .env file
       const apiURL = `https://api.openweathermap.org/data/2.5/weather?q=${country.capital}&appid=${apiKey}&units=metric`;
 
       try {
