@@ -10,8 +10,6 @@ import FilterDropDown from "./Filter";
 import { useNavigate } from "react-router-dom";
 
 
-
-
 const CountriesList = () => {
     const dispatch = useAppDispatch();
     const countries = useAppSelector(selectAllCountries);
@@ -30,7 +28,7 @@ const CountriesList = () => {
      const [searchInput, setSearchInput] = useState<string>('');
      const [filteredCountries, setFilteredCountries] = useState<Country[]>([]);
 
-     const navigate = useNavigate();
+     //const navigate = useNavigate();
      const[page, setPage] = useState(1); // why 1? because we want to start from page
      const countriesPerPage = 20;
      
@@ -41,7 +39,7 @@ const CountriesList = () => {
     , [countries]);
 
 
-     //const handleSearch
+     // Search manually typed country
      const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
             event.preventDefault();
 
@@ -60,11 +58,15 @@ const CountriesList = () => {
             }
      }
 
+     // Filter by dropdown
+     const handleFilter = (sortedCountries: Country[]) => {
+        setFilteredCountries(sortedCountries);
+      };
+
      if(loading){return <div>Loading...</div>}
      if(error){return <div>Error: {error}</div>}
 
         //Pagination
-
       const pageChange = (event: React.ChangeEvent<unknown>, value: number) => {
         console.log('clicked');
 
@@ -80,29 +82,26 @@ const CountriesList = () => {
 
     return (
         <div> 
-        <Typography variant="h4" component="h1" gutterBottom> Countries </Typography>
+            <Typography variant="h4" component="h1" gutterBottom> Countries </Typography>
 
+            <TextField type="text" label="search" value={searchInput} onChange={handleSearch}></TextField>
 
-        <TextField type="text" label="search" value={searchInput} onChange={handleSearch}></TextField>
+            <FilterDropDown onFilter={handleFilter} />
 
-        {/* <Button id="filter" onClick={handleFilter}>Filter</Button> */}
-        {/* <FilterDropDown options={['Ascending order', 'Descending order', 'CurrencyType']}/> */}
-        <FilterDropDown/>
-
-       
-        <h1>Pagination</h1>
-       <Pagination count={Math.ceil(filteredCountries.length/countriesPerPage)} color="primary" onChange={pageChange} page={page}/>
-
-
-        <Grid2 container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-        {currentCountries.map((country)=> 
-            
-                <Grid item xs={12} sm={6} md={4} lg={3}>
-                <CountryCard country={country} />
-                </Grid>
         
-        )}
-       </Grid2>
+            <h1>Pagination</h1>
+        <Pagination count={Math.ceil(filteredCountries.length/countriesPerPage)} color="primary" onChange={pageChange} page={page}/>
+
+
+            <Grid2 container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+            {currentCountries.map((country)=> 
+                
+                    <Grid item xs={12} sm={6} md={4} lg={3}>
+                    <CountryCard country={country} />
+                    </Grid>
+            
+            )}
+        </Grid2>
 
       
 

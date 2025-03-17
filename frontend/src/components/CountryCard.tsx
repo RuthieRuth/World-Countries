@@ -24,7 +24,7 @@ interface CountryCardProps {
 const CountryCard = ({ country }: CountryCardProps) => {
   console.log("Country from CountryCard:", country);
   return (
-    <Card>
+    <Card style={{ height: '450px', width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
       <CardActionArea>
         <Link
           to={`/countries/${encodeURIComponent(country.name.common)}`}

@@ -64,52 +64,36 @@ const CountryDetail = () => {
            <Button variant="contained" color="primary" onClick={goBack} sx={{mb:4}}>Back</Button>
 
            <Card >
-                <CardMedia 
-                    component="img"
-                    height="300"
-                    width="50"
-                    image={country.flags.svg}
-                    alt={country.flags.alt || `Flag of ${country.name.common}`}
-                />
-                <CardContent>
-                    <Typography variant="h4" component="h1" gutterBottom>Country: {country.name.common}</Typography>
-                    <Typography variant="h6" component="h2" gutterBottom>Official name: {country.name.official}</Typography>
+            <CardMedia
+                component="img"
+                image={country.flags.svg}
+                alt={country.flags.alt || `Flag of ${country.name.common}`}
+                sx={{
+                    height: 150,        
+                    width: '50%',       
+                    objectFit: 'contain' 
+                }}
+            />
+             <CardContent>
+                <Typography variant="h4" component="h1" gutterBottom>Country: {country.name.common}</Typography>
+                <Typography variant="h6" component="h2" gutterBottom>Official name: {country.name.official}</Typography>
 
-                    <Typography variant="body1">Population: {country.population}</Typography>
-                    <Typography variant="body1">Capital: {country.capital?.join(", ")}</Typography>
-                    <Typography variant="body1">Region: {country.region}</Typography>
-                    <Typography variant="body1">Subregion: {country.subregion}</Typography>
-                    <Typography variant="body1">Country Code: {country.cca3}</Typography>
-                    <Typography variant="body1">Currency: {Object.values(country.currencies || {}).map((currency) => currency.name).join(", ")}</Typography>
+                <Typography variant="body1">Population: {country.population}</Typography>
+                <Typography variant="body1">Capital: {country.capital?.join(", ")}</Typography>
+                <Typography variant="body1">Region: {country.region}</Typography>
+                <Typography variant="body1">Subregion: {country.subregion}</Typography>
+                <Typography variant="body1">Country Code: {country.cca3}</Typography>
+                <Typography variant="body1">Currency: {Object.values(country.currencies || {}).map((currency) => currency.name).join(", ")}</Typography>
                     
-                    <Typography variant="body1">Location: {country.location?.capital}</Typography>
-                    <Typography variant="body1">Latitude: {country.latlng?.[0]}</Typography>
-                    <Typography variant="body1">Longitude: {country.latlng?.[1]}</Typography>
+                <Typography variant="body1">Location: {country.location?.capital}</Typography>
+                <Typography variant="body1">Latitude: {country.latlng?.[0]}</Typography>
+                <Typography variant="body1">Longitude: {country.latlng?.[1]}</Typography>
 
-                    <Typography variant="h6" component="h2" gutterBottom>Weather: </Typography>
-                    <Typography variant="body1">Weather with component: {<WeatherReport country={country} />
-                }</Typography>
+                <Typography variant="h6" component="h2" gutterBottom>Weather: </Typography>
+                <Typography variant="body1">Weather with component: {<WeatherReport country={country}/>}</Typography>
 
-                </CardContent>
+            </CardContent>
             </Card>
-
-
-
-              {/*  <Grid2 container justifyContent="center" alignItems="center" >
-
-                
-             <CountryCard  
-                    country={{
-                        name: country.name.common,
-                        population: country.population,
-                        flag: country.flags?.svg || "",
-                        location: country.capital?.[0],
-                        // latlng: country.location?.latlng[0]
-                        
-                    }}
-                /> */}
-                {/* <WeatherReport /> */}
-            {/* </Grid2> */}
         </div>
     );
 };
