@@ -69,7 +69,7 @@ export const TestData = () => {
       <Typography variant="h2" gutterBottom>
         Test Data
       </Typography>
-      <Typography variant="body1" color="text.secondary" gutterBottom>
+      <Typography variant="body1" color="text.primary" gutterBottom>
         Status: Connected | Last Updated: {new Date().toLocaleString()}
       </Typography>
 

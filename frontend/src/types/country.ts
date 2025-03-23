@@ -24,6 +24,10 @@ export interface CapitalLocation {
     lng:number;
 }
 
+export interface CountryMap{
+    googleMaps: string;
+}
+
 
 // to combine the previous interfaces into one
 export interface Country {
@@ -37,6 +41,7 @@ export interface Country {
     currencies?: Record<string, Currency>;
     location?: CapitalCity;
     latlng?:CapitalLocation[];
+    maps?:CountryMap;
 }
 
 export interface CountryState{

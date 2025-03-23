@@ -3,81 +3,87 @@ import { useState } from "react";
 import { supabase } from "../config/supabase";
 
 interface CreateEntryFormProps {
-    onSuccessfulSubmit: () => void;
+  onSuccessfulSubmit: () => void;
 }
 
-export const CreateEntryForm = ({onSuccessfulSubmit}: CreateEntryFormProps) => {
+export const CreateEntryForm = ({
+  onSuccessfulSubmit,
+}: CreateEntryFormProps) => {
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const [name, setName] = useState("");
-    const [description, setDescription] = useState("");
-    const [error, setError] = useState<string | null>(null);
-    const [isSubmitting, setIsSubmitting] = useState(false);
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setError(null);
+    setIsSubmitting(true);
 
-    const handleSubmit = async(event:React.FormEvent) => {
-        event.preventDefault();
-        setError(null);
-        setIsSubmitting(true);
+    try {
+      const { error } = await supabase
+        .from("protected_data")
+        .insert([{ name, description, is_active: true }])
+        .select();
 
-        try{
-            const {error} = await supabase
-            .from("protected_data")
-            .insert([{name, description, is_active: true}])
-            .select();
+      if (error) throw error;
 
-            if (error) throw error;
-
-            setName("");
-            setDescription("");
-            onSuccessfulSubmit();
-        }
-        catch(err){
-            const error = err as {message:string; code?: string};
-            let errorMessage = error.message;
-            if (error.code === "42501"){
-                errorMessage = "Authentication error, please try logging out and back in again"
-            }
-            else if (error.message){
-                errorMessage = error.message;
-            }
-            setError(errorMessage);
-        }
-        finally{setIsSubmitting(false);}
+      setName("");
+      setDescription("");
+      onSuccessfulSubmit();
+    } catch (err) {
+      const error = err as { message: string; code?: string };
+      let errorMessage = error.message;
+      if (error.code === "42501") {
+        errorMessage =
+          "Authentication error, please try logging out and back in again";
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+      setError(errorMessage);
+    } finally {
+      setIsSubmitting(false);
     }
+  };
 
-    return (
-        <Box 
-            component = "form" 
-            onSubmit={handleSubmit} 
-            sx={{ display:'flex', flexDirection:'column', gap:2 , maxWidth: 400, mb: 4}}
-        >
-            {error && <Alert severity="error">{error}</Alert>}
-            <TextField 
-                label="Name" 
-                value={name} 
-                onChange={(event) => setName(event.target.value)} 
-                required
-                fullWidth
-            />
-            <TextField
-                label="Description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                required
-                fullWidth
-                multiline
-                rows={4}
-            />
-            <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            disabled={isSubmitting}
-            >
-            {isSubmitting ? "Submitting..." : "Submit"}
-            </Button>
-            </Box>
-    )
+  return (
+    <Box
+      component="form"
+      onSubmit={handleSubmit}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 2,
+        maxWidth: 400,
+        mb: 4,
+      }}
+    >
+      {error && <Alert severity="error">{error}</Alert>}
+      <TextField
+        label="Name"
+        value={name}
+        onChange={(event) => setName(event.target.value)}
+        required
+        fullWidth
+      />
+      <TextField
+        label="Description"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+        required
+        fullWidth
+        multiline
+        rows={4}
+      />
+      <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        disabled={isSubmitting}
+      >
+        {isSubmitting ? "Submitting..." : "Submit"}
+      </Button>
+    </Box>
+  );
 };
-
 
 //  setError(null); incase there was an erroe before reset it.

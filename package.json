@@ -14,10 +14,14 @@
         "build:frontend": "cd frontend && npm run build"
     },
     "devDependencies": {
+        "@types/react": "^19.0.12",
         "concurrently": "^8.2.2"
     },
     "dependencies": {
+        "@react-google-maps/api": "^2.20.6",
+        "@vis.gl/react-google-maps": "^1.5.2",
         "all": "^0.0.0",
-        "axios": "^1.7.9"
+        "axios": "^1.7.9",
+        "react-leaflet": "^5.0.0"
     }
 }

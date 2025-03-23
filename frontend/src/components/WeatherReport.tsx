@@ -3,6 +3,7 @@ import { Country } from "../types/country";
 import { WeatherData } from "../types/weather";
 //import { weatherAPI } from "../config/openweather";
 import { weatherAPI } from '../config/supabase';
+import { Typography } from "@mui/material";
 
 interface WeatherReportProps {
   country: Country;
@@ -42,14 +43,14 @@ const WeatherReport = ({ country }: WeatherReportProps) => {
 
   return (
     <div>
-      <h2>Weather in {country.capital}</h2>
+      {/* <h2>Weather in {country.capital}</h2> */}
       {error && <p>{error}</p>}
       {weather && (
         <div>
-          <h3>{weather.name}</h3>
-          <p>{weather.weather[0].description}</p>
-          <p>Temperature: {weather.main.temp}°C</p>
-          <p>Wind: {weather.wind.speed} m/s</p>
+          {/* <Typography component="h2" gutterBottom>Weather: </Typography> */}
+          <Typography>{weather.weather[0].description}</Typography>
+          <Typography>Temperature: {weather.main.temp}°C</Typography>
+          <Typography>Wind: {weather.wind.speed} m/s</Typography>
         </div>
       )}
     </div>

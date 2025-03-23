@@ -1,7 +1,7 @@
 //import { Box, Stack } from "@mui/material";
 //import { Button } from "@mui/material";
 
-import { Card, CardActionArea, CardActions } from "@mui/material";
+import { Card, CardActionArea, CardActions, CardContent, CardMedia } from "@mui/material";
 import FavouriteButton from "./FavouriteButton";
 import { Link } from "react-router-dom";
 import { Country } from "../types/country";
@@ -22,26 +22,47 @@ interface CountryCardProps {
 }
 
 const CountryCard = ({ country }: CountryCardProps) => {
-  console.log("Country from CountryCard:", country);
+  console.log("Country from CountryCard:", country)
+
+  // i want to display every card to be of the same height and width and have them displyed 3 or 4 cards in a row
+
   return (
-    <Card style={{ height: '450px', width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+    <Card 
+      style={{
+      height: "350px",
+      width: "250px",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      margin: "10px",
+      }}
+    >
+      <CardMedia
+      component="img"
+      height="140"
+      image={country.flags.png}
+      alt={`${country.name.common} flag`}
+      sx={{
+        objectFit: "cover",
+        borderBottom: "1px solid #ddd",
+      }}
+      />
+      <CardContent sx={{ flexGrow: 1 }}>
       <CardActionArea>
         <Link
-          to={`/countries/${encodeURIComponent(country.name.common)}`}
-          key={country.name.common}
+        to={`/countries/${encodeURIComponent(country.name.common)}`}
+        key={country.name.common}
         >
-          <div>
-            <img src={country.flags.png} alt={`${country.name}`} />
-            <h2>{country.name.common}</h2>
-            <p>Population: {country.population}</p>
-
-            <p>Capital: {country.capital}</p>
-            {/* <p>Position: {country.}</p> */}
-          </div>
+        <div>
+          <h2>{country.name.common}</h2>
+          <p>Population: {country.population}</p>
+          <p>Capital: {country.capital}</p>
+        </div>
         </Link>
       </CardActionArea>
+      </CardContent>
       <CardActions sx={{ mt: "auto", justifyContent: "flex-end" }}>
-        <FavouriteButton country={country} />
+      <FavouriteButton country={country} />
       </CardActions>
     </Card>
   );

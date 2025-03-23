@@ -21,7 +21,7 @@
    ```sql
    -- Create the test table
    CREATE TABLE test (
-     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+     id UUID DEFAULT uuid_generate_v4() primary KEY,
      created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
      name TEXT NOT NULL,
      description TEXT,

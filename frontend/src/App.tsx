@@ -11,30 +11,33 @@ import CountriesList from "./components/CountriesList";
 import CountryDetail from "./components/CountryDetail";
 import Favourites from "./components/Favourites";
 //import { Home } from "@mui/icons-material";
+import Home from "./components/Home";
+import CountryRegion from "./components/CountryRegion";
 
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
         <Box>
-         <Navigation/>
+          <Navigation />
           <Box sx={{ p: 3 }}>
             <Routes>
-              <Route path="/" element={<div>Home is here</div>} />
-              <Route 
-                path="/login" 
+              <Route path="/" element={<Home />} />
+              <Route
+                path="/login"
                 element={
                   <>
                     <AuthRedirect />
                     <Login />
                   </>
-                } />
+                }
+              />
               <Route path="/test" element={<TestData />} />
               <Route
                 path="/protected"
                 element={
                   <ProtectedRoute>
-                    <ProtectedTestData/>
+                    <ProtectedTestData />
                   </ProtectedRoute>
                 }
               />
@@ -47,21 +50,32 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-              <Route 
-                path="/countries" 
+              <Route
+                path="/countries"
                 element={
                   <>
-                    <CountriesList/>  
-                  </> 
-                }/>
+                    <CountriesList />
+                  </>
+                }
+              />
+              <Route
+                path="/countries/region/:region"
+                element={
+                  <>
+                    <CountryRegion />
+                  </>
+                }
+              />
               <Route
                 path="/countries/:name"
                 element={
                   <>
-                    <CountryDetail/>
+                    <CountryDetail />
                   </>
                 }
               />
+
+              {/* Add a new route for the region  but it routes to countryDetail cos of arrangement*/}
             </Routes>
           </Box>
         </Box>

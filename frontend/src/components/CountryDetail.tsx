@@ -1,101 +1,138 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { fetchAllCountries, selectAllCountries, selectCountriesError, selectCountriesLoading } from "../store/slices/countriesSlice";
+import {
+  fetchAllCountries,
+  selectAllCountries,
+  selectCountriesError,
+  selectCountriesLoading,
+} from "../store/slices/countriesSlice";
 import { useEffect } from "react";
-import { Button, Card, CardContent, CardMedia,Typography } from "@mui/material";
+import {
+  Button,
+  Card,
+  CardContent,
+  CardMedia,
+  Container,
+  Typography,
+} from "@mui/material";
 import WeatherReport from "./WeatherReport";
-
+import CountryMap from "./CountryMap";
+// import SingleCountryLeafletMap from "./CountryMap";
 
 const CountryDetail = () => {
-    const {name} = useParams();
-    const countries = useAppSelector(selectAllCountries);
-    const dispatch = useAppDispatch();
-    const loading = useAppSelector(selectCountriesLoading);
-    const error = useAppSelector(selectCountriesError);
+  const { name } = useParams();
+  const countries = useAppSelector(selectAllCountries);
+  const dispatch = useAppDispatch();
+  const loading = useAppSelector(selectCountriesLoading);
+  const error = useAppSelector(selectCountriesError);
+  const navigate = useNavigate(); // hook to navigate to other pages
 
-    //const {capital} = useParams();
-     
-    const navigate= useNavigate();
+  const country = countries.find(
+    (country) =>
+      country.name.common.toLowerCase() ===
+      decodeURIComponent(name || "").toLowerCase()
+  );
 
+  //console.log(name);
+  //console.log("countries: ", countries);
+  console.log("country: ", country);
+  //console.log("capital: ", country.capital);
 
-    const country = countries.find((country) => country.name.common.toLowerCase() === decodeURIComponent(name || "").toLowerCase());
+  useEffect(() => {
+    if (!country) {
+      dispatch(fetchAllCountries());
+    }
+  }, [country, dispatch]);
 
-    //console.log(name);
-    //console.log("countries: ", countries);
-    console.log("country: ", country);
-    //console.log("capital: ", country.capital);
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
+  if (!country) {
+    return <div>Country not found</div>;
+  }
 
-    useEffect(() => {
-        if(!country){dispatch(fetchAllCountries())}
-    }, [country, dispatch]);
+  //Button to go back
+  const goBack = () => {
+    navigate(-1); // go back to the previous page
+  };
 
-    if(loading){return <div>Loading...</div>}
-    if(error){return <div>Error: {error}</div>}
+  //console.log("Country from state:", country);
+  console.log(`location: ${country.latlng}`); //straight forward
+  console.log(`what: ${country.maps?.googleMaps}`); //straight forward
+  //console.log(`Latitude: ${country.latlng[0]}, Longitude: ${country.latlng[1]}`); // detailed
 
-    if(!country){return <div>Country not found</div>}
+  // Map issue
+  // const shortUrl = country.maps?.googleMaps;
+  // if (!shortUrl) {
+  //   console.error("Google Maps URL not available for this country.");
+  // }
 
-    
-    const goBack = () => {
-        navigate(-1); // go back to the previous page
-    };
-   
-    //console.log("Country from state:", country);
-    console.log(`${country.latlng}`); //straight forward
-    //console.log(`Latitude: ${country.latlng[0]}, Longitude: ${country.latlng[1]}`); // detailed
+  // const convertToEmbedUrl = (shortURL) => {
+  //   if (shortURL && shortURL.includes("goo.gl/maps/")) {
+  //     // Convert it to embeddable Google Maps URL
+  //     return `https://www.google.com/maps/embed?pb=${
+  //       shortURL.split("goo.gl/maps/")[1]
+  //     }`;
+  //   }
+  //   // If the URL is already an embed link, return it as is
+  //   return shortURL;
+  // };
 
+  // const googleMapsUrl = country.maps?.googleMaps
+  //   ? convertToEmbedUrl(country.maps.googleMaps)
+  //   : null;
 
-    //weather api
-    // const [weather, setWeather] = useState<Weather | null>(null);
-    // const [weatherLoading, setWeatherLoading] = useState(false);
-    // const [weatherError, setWeatherError] = useState<string | null>(null);
+  return (
+    <div>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={goBack}
+        sx={{ mb: 4 }}
+      >
+        Back
+      </Button>
 
-    // useEffect(()=> {
-    //     const fetchWeather = async () => {
-    //         if(!country?.capital?[0]) return;
-    //         setWeatherLoading(true);
-    //         setWeatherError(null);
-    //     };
-    //     fetchWeather();
-    // }, [country]);
+      <Container>
+      <Card
+        sx={{ maxWidth: 1000, m: "auto", justifyContent: "center", alignItems: "center"}}>
+        <CardMedia
+          component="img"
+          image={country.flags.svg}
+          alt={country.flags.alt || `Flag of ${country.name.common}`}
+          sx={{ height: 150, width: "50%", objectFit: "contain", m: "auto" }}
+         />
+        <CardContent >
+          <Typography variant="h4" gutterBottom>{country.name.common}{" "}</Typography>
+          <Typography variant="h6" gutterBottom>Official name: {country.name.official}</Typography>
+          <Typography variant="body1">Population: {country.population}</Typography>
+          <Typography variant="body1">Capital: {country.capital?.join(", ")}</Typography>
+          <Typography variant="body1">Region: {country.region}</Typography>
+          <Typography variant="body1">Subregion: {country.subregion}</Typography>
+          <Typography variant="body1">Country Abbreviation: {country.cca3}</Typography>
+          <Typography variant="body1">
+            Currency:{" "}
+            {Object.values(country.currencies || {})
+              .map((currency) => currency.name)
+              .join(", ")}
+          </Typography>
+        </CardContent>
+          {/* DELETE */}
+          {/* <Typography variant="body1">Latitude: {country.latlng?.[0]}</Typography>
+          <Typography variant="body1">Longitude: {country.latlng?.[1]}</Typography> */}
 
-    return (
-        <div> 
-           <Button variant="contained" color="primary" onClick={goBack} sx={{mb:4}}>Back</Button>
-
-           <Card >
-            <CardMedia
-                component="img"
-                image={country.flags.svg}
-                alt={country.flags.alt || `Flag of ${country.name.common}`}
-                sx={{
-                    height: 150,        
-                    width: '50%',       
-                    objectFit: 'contain' 
-                }}
-            />
-             <CardContent>
-                <Typography variant="h4" component="h1" gutterBottom>Country: {country.name.common}</Typography>
-                <Typography variant="h6" component="h2" gutterBottom>Official name: {country.name.official}</Typography>
-
-                <Typography variant="body1">Population: {country.population}</Typography>
-                <Typography variant="body1">Capital: {country.capital?.join(", ")}</Typography>
-                <Typography variant="body1">Region: {country.region}</Typography>
-                <Typography variant="body1">Subregion: {country.subregion}</Typography>
-                <Typography variant="body1">Country Code: {country.cca3}</Typography>
-                <Typography variant="body1">Currency: {Object.values(country.currencies || {}).map((currency) => currency.name).join(", ")}</Typography>
-                    
-                <Typography variant="body1">Location: {country.location?.capital}</Typography>
-                <Typography variant="body1">Latitude: {country.latlng?.[0]}</Typography>
-                <Typography variant="body1">Longitude: {country.latlng?.[1]}</Typography>
-
-                <Typography variant="h6" component="h2" gutterBottom>Weather: </Typography>
-                <Typography variant="body1">Weather with component: {<WeatherReport country={country}/>}</Typography>
-
-            </CardContent>
-            </Card>
-        </div>
-    );
+          <CardContent sx={{mt:3,mb:3}}> <Typography variant="body1">{<WeatherReport country={country} />} </Typography></CardContent>
+          {/* <Typography variant="body1">{<WeatherReport country={country} />}</Typography> */}
+          <Card sx={{m:"auto", }}><Typography variant="body1">{<CountryMap country={country} />}</Typography></Card>
+       
+      </Card>
+      </Container>
+    </div>
+  );
 };
 
 export default CountryDetail;

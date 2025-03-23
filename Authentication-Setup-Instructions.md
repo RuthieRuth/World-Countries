@@ -8,7 +8,7 @@ Run this SQL in your Supabase SQL Editor:
 
 -- Create the protected data table
 CREATE TABLE protected_data (
-id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+id UUID DEFAULT uuid_generate_v4() primary KEY,
 created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
 name TEXT NOT NULL,
 description TEXT,
