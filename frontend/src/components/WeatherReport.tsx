@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { Country } from "../types/country";
 import { WeatherData } from "../types/weather";
-//import { weatherAPI } from "../config/openweather";
 import { weatherAPI } from '../config/supabase';
 import { Typography } from "@mui/material";
+
+import FilterDramaIcon from '@mui/icons-material/FilterDrama';
 
 interface WeatherReportProps {
   country: Country;
@@ -21,6 +22,7 @@ const WeatherReport = ({ country }: WeatherReportProps) => {
       try {
         const response = await fetch(apiURL);
         const data = await response.json();
+        console.log(data);
 
         if (response.ok) {
           setWeather(data);
@@ -43,14 +45,16 @@ const WeatherReport = ({ country }: WeatherReportProps) => {
 
   return (
     <div>
-      {/* <h2>Weather in {country.capital}</h2> */}
       {error && <p>{error}</p>}
       {weather && (
         <div>
-          {/* <Typography component="h2" gutterBottom>Weather: </Typography> */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <FilterDramaIcon />
+            <Typography variant="h6" component="h2" gutterBottom>Weather in {country.capital}</Typography>
+          </div>
           <Typography>{weather.weather[0].description}</Typography>
           <Typography>Temperature: {weather.main.temp}°C</Typography>
-          <Typography>Wind: {weather.wind.speed} m/s</Typography>
+          <Typography>Wind Speed: {weather.wind.speed} m/s</Typography>
         </div>
       )}
     </div>

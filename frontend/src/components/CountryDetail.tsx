@@ -8,6 +8,7 @@ import {
 } from "../store/slices/countriesSlice";
 import { useEffect } from "react";
 import {
+  Box,
   Button,
   Card,
   CardContent,
@@ -87,51 +88,51 @@ const CountryDetail = () => {
   //   : null;
 
   return (
-    <div>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={goBack}
-        sx={{ mb: 4 }}
-      >
-        Back
-      </Button>
+    <Container>
+  <Box sx={{ maxWidth: 1000, m: "auto", textAlign: "center" }}>
+    <Box
+      component="img"
+      src={country.flags.svg}
+      alt={country.flags.alt || `Flag of ${country.name.common}`}
+      sx={{ height: 150, width: "50%", objectFit: "contain", m: "auto" }}
+    />
 
-      <Container>
-      <Card
-        sx={{ maxWidth: 1000, m: "auto", justifyContent: "center", alignItems: "center"}}>
-        <CardMedia
-          component="img"
-          image={country.flags.svg}
-          alt={country.flags.alt || `Flag of ${country.name.common}`}
-          sx={{ height: 150, width: "50%", objectFit: "contain", m: "auto" }}
-         />
-        <CardContent >
-          <Typography variant="h4" gutterBottom>{country.name.common}{" "}</Typography>
-          <Typography variant="h6" gutterBottom>Official name: {country.name.official}</Typography>
-          <Typography variant="body1">Population: {country.population}</Typography>
-          <Typography variant="body1">Capital: {country.capital?.join(", ")}</Typography>
-          <Typography variant="body1">Region: {country.region}</Typography>
-          <Typography variant="body1">Subregion: {country.subregion}</Typography>
-          <Typography variant="body1">Country Abbreviation: {country.cca3}</Typography>
-          <Typography variant="body1">
-            Currency:{" "}
-            {Object.values(country.currencies || {})
-              .map((currency) => currency.name)
-              .join(", ")}
-          </Typography>
-        </CardContent>
-          {/* DELETE */}
-          {/* <Typography variant="body1">Latitude: {country.latlng?.[0]}</Typography>
-          <Typography variant="body1">Longitude: {country.latlng?.[1]}</Typography> */}
+    <Typography variant="h4" gutterBottom sx={{ textTransform: "uppercase" }}>{country.name.common}</Typography>
+    <Typography variant="h6" gutterBottom>Official name: {country.name.official}</Typography>
 
-          <CardContent sx={{mt:3,mb:3}}> <Typography variant="body1">{<WeatherReport country={country} />} </Typography></CardContent>
-          {/* <Typography variant="body1">{<WeatherReport country={country} />}</Typography> */}
-          <Card sx={{m:"auto", }}><Typography variant="body1">{<CountryMap country={country} />}</Typography></Card>
-       
-      </Card>
-      </Container>
-    </div>
+    <Box
+      display="flex"
+      flexDirection="row"
+      justifyContent="center"
+      alignItems="flex-start"
+      gap={10}
+      mt={3}
+    >
+      <Box>
+        <Typography variant="body1">Population: {country.population}</Typography>
+        <Typography variant="body1">Capital: {country.capital?.join(", ")}</Typography>
+        <Typography variant="body1">Region: {country.region}</Typography>
+        <Typography variant="body1">Subregion: {country.subregion}</Typography>
+        <Typography variant="body1">Country Abbreviation: {country.cca3}</Typography>
+        <Typography variant="body1">
+          Currency:{" "}
+          {Object.values(country.currencies || {})
+            .map((currency) => currency.name)
+            .join(", ")}
+        </Typography>
+      </Box>
+
+      <Box mt={3} mb={3}>
+        <Typography variant="body1">{<WeatherReport country={country} />}</Typography>
+      </Box>
+    </Box>
+
+    <Box mt={4}>
+      <Typography variant="body1">{<CountryMap country={country} />}</Typography>
+    </Box>
+  </Box>
+</Container>
+
   );
 };
 

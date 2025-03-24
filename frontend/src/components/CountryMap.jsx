@@ -1,26 +1,9 @@
-/* import { Google } from "@mui/icons-material";
-import { Country } from "../types/country";
-
-interface CountryMapProps {
-  country: Country;
-}
-
-const CountryMap = ({ country }: CountryMapProps) => {
-
-  return(
-    <div className="container">Map is here
-      <div className="map">
-        <GoogleMap></GoogleMap>
-      </div>
-    </div>
-  )
-};
-export default CountryMap; */
-
-//import { useEffect, useState } from "react";
 import React from "react";
 //import { GoogleGeoCodingResponse } from "../types/map";
-import { GoogleMap, useJsApiLoader, useLoadScript } from "@react-google-maps/api";
+import { GoogleMap, Marker, useJsApiLoader, useLoadScript } from "@react-google-maps/api";
+import { googleMapAPI } from '../config/supabase';
+
+const googleMapApiKey = googleMapAPI;
 
 const CountryMap = ({ country }) => {
 
@@ -30,7 +13,7 @@ const CountryMap = ({ country }) => {
   // console.log("CountryMap", country).latlng[0];
   const { isLoaded, loadError } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: "AIzaSyDlrVkUsg50vhVoAJJnlsqh-i9CqZml8AA",
+    googleMapsApiKey: googleMapApiKey,
   });
 
   const [map, setMap] = React.useState(null);
@@ -52,10 +35,17 @@ const CountryMap = ({ country }) => {
   return (
     <GoogleMap
       mapContainerStyle={{ height: "400px", width: "100%" }}
-      center={{ lat: country.latlng[0], lng: country.latlng[0] }} //or center={{ lat: country.latlng[0], lng: country.latlng[0] }}
+      center={{ lat: country.latlng[0], lng: country.latlng[1] }} //or center={{ lat: country.latlng[0], lng: country.latlng[0] }}
       zoom={4}
       onLoad={onMapLoad} 
     >
+      <Marker
+        position={{ lat: country.latlng[0], lng: country.latlng[1] }}
+        icon={{
+          url: "https://maps.google.com/mapfiles/ms/icons/red-dot.png",
+          scaledSize: new window.google.maps.Size(40, 40),
+        }}
+/>
     </GoogleMap>
   );
 };

@@ -87,8 +87,8 @@ const FilterDropDown: React.FC<FilterDropDownProps> = ({ onFilter }) => {
       </Button>
 
       <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-        <MenuItem onClick={ascendingOrder}>A - Z</MenuItem>
-        <MenuItem onClick={descendingOrder}>Z - A</MenuItem>
+        <MenuItem onClick={ascendingOrder}>Alphabetically, A - Z</MenuItem>
+        <MenuItem onClick={descendingOrder}>Alphabetically, Z - A</MenuItem>
         <MenuItem onClick={byRegion}>Region/ continent</MenuItem>
       </Menu>
     </div>
