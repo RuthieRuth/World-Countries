@@ -8,6 +8,7 @@ import {
 } from "../store/slices/countriesSlice";
 import { useEffect, useState } from "react";
 import { Country } from "../types/country";
+import { Typography } from "@mui/material";
 
 const CountryRegion = () => {
    
@@ -38,7 +39,35 @@ const CountryRegion = () => {
     }
   }, [countries, region]);
 
-  /* useEffect(() => {
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  return (
+    <div>
+        <Typography variant="h2" sx={{ display: 'flex', justifyContent: 'center' }}>
+          Continent: {region?.toUpperCase()}
+        </Typography>
+
+        <ul style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', listStyle: 'none', padding: 0 }}>
+        {filteredRegions.map((country) => (
+        <Link to={`/countries/${encodeURIComponent(country.name.common)}`}> 
+          <li key={country.name.common} >
+            {country.name.common}
+          </li>
+        </Link>
+        ))}
+        </ul>
+    </div>
+  );
+};
+
+export default CountryRegion;
+
+ /* useEffect(() => {
     if (countries.length > 0) {
       const filtered = countries.filter(
         (country) => country.region.toLowerCase() === region?.toLowerCase()
@@ -56,23 +85,3 @@ const CountryRegion = () => {
     const region = countries.filter((country) => country.region === 'Africa');
     console.log('region', region);
     } */
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
-  return (
-    <div>
-        <h2>Continent: {region?.toUpperCase()}</h2>
-        {filteredRegions.map((country) => (
-        <Link to={`/countries/${encodeURIComponent(country.name.common)}`}> <li key={country.name.common}>{country.name.common}</li></Link>
-   
-        ))}
-    </div>
-  );
-};
-
-export default CountryRegion;

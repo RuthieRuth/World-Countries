@@ -9,12 +9,10 @@ import {
 import {
   Box,
   Container,
-  FormControl,
   Grid,
   Grid2,
   Pagination,
   TextField,
-  Typography,
 } from "@mui/material";
 import CountryCard from "./CountryCard";
 

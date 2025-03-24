@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { useAppSelector } from "../store/hooks";
 import { selectAllCountries } from "../store/slices/countriesSlice";
 import { Country } from "../types/country";
-//import { RootState } from './store';
 
 /* interface FilterDropDownProps {
   options: string[];

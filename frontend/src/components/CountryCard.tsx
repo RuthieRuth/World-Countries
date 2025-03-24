@@ -1,21 +1,9 @@
-//import { Box, Stack } from "@mui/material";
-//import { Button } from "@mui/material";
-
 import { Card, CardActionArea, CardActions, CardContent, CardMedia } from "@mui/material";
 import FavouriteButton from "./FavouriteButton";
 import { Link } from "react-router-dom";
 import { Country } from "../types/country";
 
-// interface CountryCardProps {
-//   country: {
-//     flags: { svg: string };
-//     name: string;
-//     population: number;
-//     capital?: string[];
-//     location?: string;
-//     latlng?: number[];
-//   };
-// }
+// interface CountryCardProps : define the type of the props
 
 interface CountryCardProps {
   country: Country;
@@ -23,8 +11,6 @@ interface CountryCardProps {
 
 const CountryCard = ({ country }: CountryCardProps) => {
   console.log("Country from CountryCard:", country)
-
-  // i want to display every card to be of the same height and width and have them displyed 3 or 4 cards in a row
 
   return (
     <Card 

@@ -10,9 +10,6 @@ import { useEffect } from "react";
 import {
   Box,
   Button,
-  Card,
-  CardContent,
-  CardMedia,
   Container,
   Typography,
 } from "@mui/material";
@@ -34,9 +31,10 @@ const CountryDetail = () => {
       decodeURIComponent(name || "").toLowerCase()
   );
 
+  //testing phase
   //console.log(name);
   //console.log("countries: ", countries);
-  console.log("country: ", country);
+  //console.log("country: ", country);
   //console.log("capital: ", country.capital);
 
   useEffect(() => {
@@ -66,35 +64,18 @@ const CountryDetail = () => {
   console.log(`what: ${country.maps?.googleMaps}`); //straight forward
   //console.log(`Latitude: ${country.latlng[0]}, Longitude: ${country.latlng[1]}`); // detailed
 
-  // Map issue
-  // const shortUrl = country.maps?.googleMaps;
-  // if (!shortUrl) {
-  //   console.error("Google Maps URL not available for this country.");
-  // }
-
-  // const convertToEmbedUrl = (shortURL) => {
-  //   if (shortURL && shortURL.includes("goo.gl/maps/")) {
-  //     // Convert it to embeddable Google Maps URL
-  //     return `https://www.google.com/maps/embed?pb=${
-  //       shortURL.split("goo.gl/maps/")[1]
-  //     }`;
-  //   }
-  //   // If the URL is already an embed link, return it as is
-  //   return shortURL;
-  // };
-
-  // const googleMapsUrl = country.maps?.googleMaps
-  //   ? convertToEmbedUrl(country.maps.googleMaps)
-  //   : null;
-
   return (
     <Container>
+      <Button variant="contained" onClick={goBack} sx={{ mt: 2 }}>
+        Go back
+      </Button>
   <Box sx={{ maxWidth: 1000, m: "auto", textAlign: "center" }}>
     <Box
       component="img"
       src={country.flags.svg}
       alt={country.flags.alt || `Flag of ${country.name.common}`}
-      sx={{ height: 150, width: "50%", objectFit: "contain", m: "auto" }}
+      sx={{ height: 150, width: "30%",  m: "auto", borderRadius: 8 }}
+      // objectFit: "contain",
     />
 
     <Typography variant="h4" gutterBottom sx={{ textTransform: "uppercase" }}>{country.name.common}</Typography>

@@ -1,84 +1,33 @@
-# Countries Fullstack
+# ONE WORLD ()
 
-A full-stack application with NestJS backend and React frontend.
+This is a FullStack application with both Backend and Frontend. This project is for anyone who wants to
+learn about all the countries in the world; big or small countries and on which continent they can be found.
 
-## Project Structure
+![Landing Page](/Users/s2401357/Documents/BUSINESS COLL- HELSINKI/React Advanced/Countries-FullStack-React24S/frontend/src/images/Screenshot 2025-03-24 at 18.31.28.png)
 
-```shell
-project-root/
-├── backend/   # NestJS application
-└── frontend/  # React application
+## Technologies and Libraries used
+Backend: 
+- NestJS
+- Supabase (for Authentication)
+
+Frontend:
+- React
+- TypeScript
+- Material UI
+- React Router DOM
+- React Redux and Redux Toolkit 
+
+## How to run locally
+```js
+npm run dev 
 ```
+This runs simultaneously the backend and frontend. 
 
-## Prerequisites
+- `npm run dev:frontend` - Start only the frontend.
+- `npm run dev:backend` - Start only the backend.
 
-- Node.js (v18 or higher recommended)
-- npm (comes with Node.js)
+## Sources / Credits
+- [OpenWeather API](https://openweathermap.org/api)
+- [GoogleMaps](https://developers.google.com/maps/documentation)
+- Special thanks to Martin Holland and Margit Tennosaar for guiding me through this project.
 
-## Installation
-
-1. Clone the repository:
-
-```bash
-git clone <your-repository-url>
-cd <project-directory>
-```
-
-2. Install all dependencies (both frontend and backend):
-
-```bash
-npm install (then)
-npm run install:all
-```
-
-## Development
-
-Start both frontend and backend development servers:
-
-```bash
-npm run dev
-```
-
-The applications will be available at:
-
-- Frontend: http://localhost:5180
-- Backend: http://localhost:3000
-
-### Available Commands
-
-- `npm run dev` - Start both frontend and backend in development mode
-- `npm run dev:frontend` - Start only the frontend
-- `npm run dev:backend` - Start only the backend
-- `npm run install:all` - Install dependencies for both projects
-- `npm run install:frontend` - Install frontend dependencies
-- `npm run install:backend` - Install backend dependencies
-- `npm run build` - Build both projects
-- `npm run build:frontend` - Build frontend only
-- `npm run build:backend` - Build backend only
-
-## Environment Setup
-
-1. Create a `.env` file in the backend directory:
-
-```env
-SUPABASE_URL=https://your-supabase-instance.supabase.co
-SUPABASE_ANON_KEY=your-anon-key
-```
-
-## Tech Stack
-
-- **Frontend:**
-  - React
-  - TypeScript
-  - Vite
-- **Backend:**
-  - NestJS
-  - TypeScript
-  - Supabase
-
-## Development Notes
-
-- The backend includes CORS configuration for the frontend port (5180)
-- TypeScript is configured for both frontend and backend
-- ESLint and Prettier are set up for code formatting
-- Both applications include hot-reload functionality for development
