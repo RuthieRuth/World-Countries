@@ -108,9 +108,9 @@ const CountryDetail = () => {
       </Box>
     </Box>
 
-    <Box mt={4}>
+    {/* <Box mt={4}>
       <Typography variant="body1">{<CountryMap country={country} />}</Typography>
-    </Box>
+    </Box> */}
   </Box>
 </Container>
 
