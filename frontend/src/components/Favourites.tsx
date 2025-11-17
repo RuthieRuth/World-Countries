@@ -5,9 +5,9 @@ import { selectAllCountries } from "../store/slices/countriesSlice";
 import { CountryFavorite } from "../types/favourites";
 import { favouritesApi } from "../api/services/favourites";
 import { Alert, CircularProgress, Typography } from "@mui/material";
-import { Box, Grid } from "@mui/system";
+import { Box } from "@mui/system";
 import CountryCard from "./CountryCard";
-
+import { Grid } from '@mui/material';
 
 
 const Favourites = () => {
