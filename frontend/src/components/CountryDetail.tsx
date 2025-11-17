@@ -14,7 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 import WeatherReport from "./WeatherReport";
-import CountryMap from "./CountryMap";
+//import CountryMap from "./CountryMap";
 // import SingleCountryLeafletMap from "./CountryMap";
 
 const CountryDetail = () => {
