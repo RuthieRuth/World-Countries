@@ -79,7 +79,7 @@ const CountriesList = () => {
   }
 
   //Pagination
-  const pageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+  const pageChange = (_: React.ChangeEvent<unknown>, value: number) => {
     console.log("clicked");
 
     setPage(value);
