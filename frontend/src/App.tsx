@@ -22,7 +22,10 @@ function App() {
           <Navigation />
           <Box sx={{ p: 3 }}>
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route 
+                path="/" 
+                element={<Home />} 
+              />
               <Route
                 path="/login"
                 element={

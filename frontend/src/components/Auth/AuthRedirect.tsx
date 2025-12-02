@@ -1,16 +1,23 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
 export const AuthRedirect = () => {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    if (user) {
-      navigate("/protected");
+    // Only redirect from /login page after successful authentication
+    // Don't redirect from other pages like home
+    if (!loading && user && location.pathname === "/login") {
+      try {
+        navigate("/protected", { replace: true });
+      } catch (error) {
+        console.error("Error during redirect:", error);
+      }
     }
-  }, [user, navigate]);
+  }, [user, loading, navigate, location.pathname]);
 
   return null;
 };

@@ -14,16 +14,23 @@ const ProtectedTestData = () => {
     const [loading, setLoading] = useState<boolean>(false);    
     
     const fetchProtectedData = async () => {
+        setLoading(true);
+        setError(null);
         try{
             const {data:protectedData,error} = await supabase
             .from ("protected_data")
             .select("*");
 
-            if(error) throw error;
-            setData(protectedData);
+            if(error) {
+                console.error('Supabase error:', error);
+                throw error;
+            }
+            setData(protectedData || []);
         }
-        catch(error){
-            setError(error instanceof Error ? error.message : "An unknown error occurred");
+        catch(error: any){
+            const errorMessage = error?.message || error?.error_description || "An unknown error occurred";
+            console.error('Error fetching protected data:', error);
+            setError(errorMessage);
         }
         finally{
             setLoading(false);
