@@ -14,8 +14,8 @@ import {
   Typography,
 } from "@mui/material";
 import WeatherReport from "./WeatherReport";
-//import CountryMap from "./CountryMap";
-// import SingleCountryLeafletMap from "./CountryMap";
+import CountryMap from "./CountryMap";
+import SingleCountryLeafletMap from "./CountryMap";
 
 const CountryDetail = () => {
   const { name } = useParams();
@@ -108,9 +108,9 @@ const CountryDetail = () => {
       </Box>
     </Box>
 
-    {/* <Box mt={4}>
+    <Box mt={4}>
       <Typography variant="body1">{<CountryMap country={country} />}</Typography>
-    </Box> */}
+    </Box>
   </Box>
 </Container>
 

@@ -1,6 +1,6 @@
 import React from "react";
 //import { GoogleGeoCodingResponse } from "../types/map";
-import { GoogleMap, Marker, useJsApiLoader, useLoadScript } from "@react-google-maps/api";
+import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import { googleMapAPI } from '../config/supabase';
 
 const googleMapApiKey = googleMapAPI;
@@ -19,13 +19,7 @@ const CountryMap = ({ country }) => {
   const [map, setMap] = React.useState(null);
 
   const onMapLoad = React.useCallback((map) => {
-    // This is just an example of getting and using the map instance!!! don't just blindly copy!
-    const bounds = new window.google.maps.LatLngBounds({
-      lat: country.latlng[0],
-      lng: country.latlng[1],
-    });
-    map.fitBounds(bounds);
-
+    // Store the map instance
     setMap(map);
   }, []);
 
@@ -35,8 +29,8 @@ const CountryMap = ({ country }) => {
   return (
     <GoogleMap
       mapContainerStyle={{ height: "400px", width: "100%" }}
-      center={{ lat: country.latlng[0], lng: country.latlng[1] }} //or center={{ lat: country.latlng[0], lng: country.latlng[0] }}
-      zoom={4}
+      center={{ lat: country.latlng[0], lng: country.latlng[1] }}
+      zoom={7}
       onLoad={onMapLoad} 
     >
       <Marker
